@@ -40,19 +40,18 @@ def generate_frames():
 
         frame = cv2.resize(frame, (640, 480))
 
-        # 🔴 DETECTION
+        #DETECTION
         detections = detector.detect(frame)
 
-        # 🔴 TRACKING
+        #TRACKING
         if len(detections) > 0:
             dets_for_tracker = detections[:, :5]
             tracked_objects = tracker.update(dets_for_tracker)
         else:
             tracked_objects = np.empty((0, 5))
 
-        # 🔴 DRAW (Label + ID ALWAYS shown)
-        # 🔥 IMPROVED DRAW LOGIC with robust label matching
-
+        #DRAW (Label + ID ALWAYS shown)
+        
         for obj in tracked_objects:
             x1, y1, x2, y2, obj_id = obj
             x1, y1, x2, y2 = map(int, [x1, y1, x2, y2])
